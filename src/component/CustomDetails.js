@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import Header from './Header';
-import {Button, Alert, Card, Form,Table} from "react-bootstrap";
+import {Button, Form,Table} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from "./Footer";
 
@@ -8,92 +8,52 @@ class CustomDetails extends Component{
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            items :[],
-            email: '',
-            country: '',
-            new_case:'',
-            total_case:'',
-            total_death:''
-
+        this.state ={
+            items:[{email:'',country:'',new_case:'',total_case:'',total_death:''}]
         }
     }
 
-    handleUserEmail = (event) => {
+    addData(e){
+        e.preventDefault();
+        const {items}=this.state;
+        const newData = this.newData.value;
         this.setState({
-            email: event.target.value
+            items:[...this.state.items, newData],
         })
-    }
-    handleUserCountry = (event) => {
-        this.setState({
-            country: event.target.value
-        })
-    }
-    handleUserNewCase = (event) => {
-        this.setState({
-            new_case: event.target.value
-        })
-    }
-    handleUserTotalCase = (event) => {
-        this.setState({
-            total_case: event.target.value
-        })
-    }
-    handleUserTotalDeath = (event) => {
-        this.setState({
-            total_death: event.target.value
-        })
-    }
-    handleSubmit = event =>{
-        const { email,country,new_case,total_case,total_death } =this.state;
-        localStorage.setItem('email',email);
-        localStorage.setItem('country',country);
-        localStorage.setItem('new_case',new_case);
-        localStorage.setItem('total_case',total_case);
-        localStorage.setItem('total_death',total_death);
-
-    }
-
-    componentDidMount() {
-        const email = localStorage.getItem('email');
-        const country = localStorage.getItem('country');
-        const new_case = localStorage.getItem('new_case');
-        const total_case = localStorage.getItem('total_case');
-        const total_death = localStorage.getItem('total_death');
-        this.setState({ email,country,new_case,total_case,total_death });
+        this.addForm.reset();
     }
 
 
     render() {
+        const {items}=this.state;
         return(
             <div>
-                <Header/>
-                <br></br>
                 <div>
-                    <Form md="10" onSubmit={this.handleSubmit}>
+                    <Header/>
+                    <div>
+                    <Form ref={input =>this.addForm = input} onSubmit={(e)=>{this.addData(e)}}>
                         <Form.Group controlId="formBasicEmail">
                         <Form.Label>User Email</Form.Label>
-                        <Form.Control required value={this.state.items.email} onChange={this.handleUserEmail} type="email" placeholder="Enter email" />
+                        <Form.Control required ref={input =>this.newData= input}  type="email" placeholder="Enter email" />
 
                         <Form.Group controlId="formBasicCountry">
                         <Form.Label>Country</Form.Label>
-                        <Form.Control required value={this.state.items.country} onChange={this.handleUserCountry} type="text" placeholder="Enter country" />
+                        <Form.Control required ref={input =>this.newData= input}  type="text" placeholder="Enter country" />
                         </Form.Group>
 
                          <Form.Group controlId="formBasicNewCases">
                         <Form.Label>New Cases</Form.Label>
-                        <Form.Control required value={this.state.items.new_case} onChange={this.handleUserNewCase} type="text" placeholder="Enter no of new cases" />
+                        <Form.Control required ref={input =>this.newData= input}  type="text" placeholder="Enter no of new cases" />
                         </Form.Group>
 
                          <Form.Group controlId="formBasicCases">
                         <Form.Label>Total cases</Form.Label>
-                        <Form.Control required value={this.state.items.total_case} onChange={this.handleUserTotalCase} type="text" placeholder="Enter no of total cases" />
+                        <Form.Control required ref={input =>this.newData= input}  type="text" placeholder="Enter no of total cases" />
                         </Form.Group>
 
                         <Form.Group controlId="formBasicDeath">
                         <Form.Label>Total death</Form.Label>
-                        <Form.Control required value={this.state.items.total_death} onChange={this.handleUserTotalDeath} type="text" placeholder="Enter no of total deaths" />
+                        <Form.Control required ref={input =>this.newData= input} type="text" placeholder="Enter no of total deaths" />
                         </Form.Group>
 
                         <Button variant="primary" type="submit">
@@ -114,19 +74,28 @@ class CustomDetails extends Component{
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>{this.state.email}</td>
-                          <td>{this.state.country}</td>
-                          <td>{this.state.new_case}</td>
-                          <td>{this.state.total_case}</td>
-                          <td>{this.state.total_death}</td>
-                        </tr>
+                      {items.map(item => {
+                          return(
+                              <tr key={item.country}>
+                                  <td>{item.email}</td>
+                                  <td>{item.country}</td>
+                                  <td>{item.new_case}</td>
+                                  <td>{item.total_case}</td>
+                                  <td>{item.total_death}</td>
+                              </tr>
+                          )
+                      })}
+
                       </tbody>
                     </Table>
                 </div>
-                <Footer/>
+                    <Footer/>
+                </div>
             </div>
         )
-    }}
+    }
+
+
+}
 
 export default CustomDetails;

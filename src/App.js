@@ -1,8 +1,8 @@
-import {Button , Alert, Card} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CustomDetails from "./component/CustomDetails";
-import {Link, BrowserRouter as Router, Switch,Route,HashRouter} from "react-router-dom";
+import { BrowserRouter as Router,Route} from "react-router-dom";
 import Dashboard from "./component/Dashboard";
+import Chart from "./component/Chart";
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
         <Router>
             <Route component={CustomDetails} path='/customDetails'></Route>
             <Route component={Dashboard} path='/dashboard'></Route>
+            <Route component={Chart} path='/chart'></Route>
         </Router>
       </header>
     </div>

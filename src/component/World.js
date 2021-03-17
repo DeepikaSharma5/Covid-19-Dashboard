@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import {Button, Alert, Card, Form,Table} from "react-bootstrap";
+import {Table} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class World extends Component {
@@ -7,7 +7,7 @@ class World extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: [],
+            items: {},
             isLoaded: false,
         }
     }
@@ -41,13 +41,11 @@ class World extends Component {
                             </tr>
                             </thead>
                             <tbody>
-                                {items.map(item => (
-                                <tr key={item.cases}>
-                                    <td>{item.cases}</td>
-                                    <td>{item.deaths}</td>
-                                    <td>{item.recovered}</td>
+                                <tr key={items.cases}>
+                                    <td>{items.cases}</td>
+                                    <td>{items.deaths}</td>
+                                    <td>{items.recovered}</td>
                                 </tr>
-                            ))}
                             </tbody>
                         </Table>
                     </div>

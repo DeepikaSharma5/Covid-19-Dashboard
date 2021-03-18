@@ -1,4 +1,4 @@
-import React,{Component} from "react";
+import React, {Component} from "react";
 import {Table} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -41,11 +41,11 @@ class World extends Component {
                             </tr>
                             </thead>
                             <tbody>
-                                <tr key={items.cases}>
-                                    <td>{items.cases}</td>
-                                    <td>{items.deaths}</td>
-                                    <td>{items.recovered}</td>
-                                </tr>
+                            <tr key={items.cases}>
+                                <td>{items.cases}</td>
+                                <td>{items.deaths}</td>
+                                <td>{items.recovered}</td>
+                            </tr>
                             </tbody>
                         </Table>
                     </div>
@@ -54,4 +54,5 @@ class World extends Component {
         }
     }
 }
+
 export default World

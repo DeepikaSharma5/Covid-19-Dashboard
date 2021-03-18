@@ -1,7 +1,7 @@
-import React,{Component } from "react";
-import { Line } from "react-chartjs-2";
+import React, {Component} from "react";
+import {Line} from "react-chartjs-2";
 
-class Chart extends Component{
+class Chart extends Component {
     componentDidMount() {
         fetch('https://coronavirus-19-api.herokuapp.com/all')
             .then(res => res.json())
@@ -16,21 +16,21 @@ class Chart extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            items:{},
+            items: {},
             labels: ['Total Cases', 'Total Deaths', 'Total Recovered'],
-              datasets: [
+            datasets: [
                 {
-                  backgroundColor: 'rgba(75,192,192,1)',
-                  borderColor: 'rgba(0,0,0,1)',
-                  borderWidth: 2,
-                  data: [1,2,3]
+                    backgroundColor: 'rgba(75,192,192,1)',
+                    borderColor: 'rgba(0,0,0,1)',
+                    borderWidth: 2,
+                    data: [1, 2, 3]
                 }
-              ]
+            ]
         }
     }
 
     render() {
-        const { items} = this.state;
+        const {items} = this.state;
         const data1 = items.cases;
         const data2 = items.deaths;
         const data3 = items.recovered;
@@ -42,27 +42,28 @@ class Chart extends Component{
                 <Line
                     data={{
                         labels: this.state.labels,
-                        datasets:{
-                            backgroundColor:this.state.datasets.backgroundColor,
-                            borderColor:this.state.datasets.borderColor,
-                            borderWidth:this.state.datasets.borderWidth,
-                            data:[{data1},{data2},{data3}]
+                        datasets: {
+                            backgroundColor: this.state.datasets.backgroundColor,
+                            borderColor: this.state.datasets.borderColor,
+                            borderWidth: this.state.datasets.borderWidth,
+                            data: [{data1}, {data2}, {data3}]
                         }
                     }}
-                      options={{
-                        title:{
-                          display:true,
-                          text:'World wide Covid Cases',
-                          fontSize:20
+                    options={{
+                        title: {
+                            display: true,
+                            text: 'World wide Covid Cases',
+                            fontSize: 20
                         },
-                        legend:{
-                          display:true,
-                          position:'right'
+                        legend: {
+                            display: true,
+                            position: 'right'
                         }
-                      }}
-                     height='50%'/>
+                    }}
+                    height='50%'/>
             </div>
         );
     }
 }
+
 export default Chart

@@ -1,9 +1,9 @@
-import React,{Component} from "react";
+import React, {Component} from "react";
 import {Table} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class Countries extends Component{
-   constructor(props) {
+class Countries extends Component {
+    constructor(props) {
         super(props);
         this.state = {
             items: [],
@@ -43,14 +43,14 @@ class Countries extends Component{
                             </tr>
                             </thead>
                             <tbody>
-                                {items.map(item => (
+                            {items.map(item => (
                                 <tr key={item.country}>
                                     <td>{item.country}</td>
                                     <td>{item.cases}</td>
                                     <td>{item.todayCases}</td>
                                     <td>{item.deaths}</td>
-                                    <td>{items.todayDeaths}</td>
-                                    <td>{items.recovered}</td>
+                                    <td>{item.todayDeaths}</td>
+                                    <td>{item.recovered}</td>
                                 </tr>
                             ))}
                             </tbody>
@@ -62,4 +62,5 @@ class Countries extends Component{
         }
     }
 }
+
 export default Countries

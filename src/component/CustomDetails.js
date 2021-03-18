@@ -9,39 +9,36 @@ class CustomDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: [{email: '', country: '', new_case: '', total_case: '', total_death: ''}],
-            message: ''
-        }
-        this.newData = React.createRef();
-        this.addForm = React.createRef();
-
+            items: [],
+            message: ""
+        };
     }
 
-    addData(e) {
+    addData = (e) => {
         e.preventDefault();
         const {items} = this.state;
-        const newData = () => ({
-            email: this.addForm.email.value,
-            country: this.addForm.country.value,
-            new_case: this.addForm.new_case.value,
-            total_case: this.addForm.total_case.value,
-            total_death: this.addForm.total_death.value
-        })
 
-        const isOnTheList = items.includes(newData.country);
+        const newData = {
+            email: e.target.email.value,
+            country: e.target.country.value,
+            new_case: e.target.new_case.value,
+            total_case: e.target.total_case.value,
+            total_death: e.target.total_death.value
+        };
+
+        const isOnTheList = items.some((item) => item.country === newData.country);
 
         if (isOnTheList) {
-            this.setState(({
-                message: 'This country details are already added.'
-            }))
-        } else {
             this.setState({
-                items: [...this.state.items, newData()],
-            })
+                message: "This country details are already added."
+            });
+        } else {
+            this.setState((prevState) => ({
+                items: [...prevState.items, newData]
+            }));
         }
-        this.addForm.reset();
-    }
-
+        e.target.reset();
+    };
 
     render() {
         const {items, message} = this.state;
@@ -50,58 +47,54 @@ class CustomDetails extends Component {
                 <div>
                     <Header/>
                     <div>
-                        <Form ref={input => this.addForm = input} onSubmit={(e) => {
-                            this.addData(e)
-                        }}>
+                        <Form onSubmit={this.addData}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>User Email :</Form.Label><br/>
-                                <input required ref={input => this.newData["email"] = input} name="email"
-                                       value={this.state.items.email}
+                                <input required
+                                       name="email"
                                        type="email"
                                        placeholder="Enter email"/>
                             </Form.Group>
 
-                            <Form.Group controlId="formBasicCountry">
+                            <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Country :</Form.Label><br/>
-                                <input required ref={input => this.newData["country"] = input} name="country"
-                                       value={this.state.items.country}
+                                <input required
+                                       name="country"
                                        type="text"
                                        placeholder="Enter country"/>
                             </Form.Group>
 
-                            <Form.Group controlId="formBasicNewCases">
+                            <Form.Group controlId="formBasicEmail">
                                 <Form.Label>New Cases :</Form.Label><br/>
-                                <input required ref={input => this.newData["new_case"] = input}
+                                <input required
                                        name="new_case"
-                                       value={this.state.items.new_case} type="text"
+                                       type="text"
                                        placeholder="Enter no of new cases"/>
                             </Form.Group>
 
-                            <Form.Group controlId="formBasicCases">
+                            <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Total cases :</Form.Label><br/>
-                                <input required ref={input => this.newData["total_case"] = input}
+                                <input required
                                        name="total_case"
-                                       value={this.state.items.total_case} type="text"
+                                       type="text"
                                        placeholder="Enter no of total cases"/>
                             </Form.Group>
 
-                            <Form.Group controlId="formBasicDeath">
+                            <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Total death :</Form.Label><br/>
-                                <input required ref={input => this.newData["total_death"] = input}
+                                <input required
                                        name="total_death"
-                                       value={this.state.items.total_death} type="text"
+                                       type="text"
                                        placeholder="Enter no of total deaths"/>
                             </Form.Group>
-
                             <Button variant="primary" type="submit">
-                                Submit</Button>
+                                Submit</Button><br/>
                         </Form>
 
                     </div>
+                    <br/>
                     <div>
-                        {
-                            message !== '' && <p>{this.setState.message}</p>
-                        }
+                        {message !== '' && <p>{this.state.message}</p>}
                         <Table striped bordered hover>
                             <thead>
                             <tr>
